@@ -74,6 +74,22 @@
             color: #888;
             margin-top: 15px;
         }
+        .btn-kembali {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-kembali:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +121,9 @@
         <div class="divider"></div>
         <div class="center">✨ Terima Kasih telah berbelanja di Indah Skin Care! ✨</div>
         <div class="footer">📞 Hubungi kami: 0812-3456-7890</div>
+
+        <!-- Tombol Kembali -->
+        <a href="javascript:history.back()" class="btn-kembali">Kembali</a>
     </div>
 
     <script>

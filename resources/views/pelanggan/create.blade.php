@@ -36,7 +36,7 @@
             @csrf
             <div class="mb-3">
                 <label for="NamaPelanggan" class="form-label">Nama:</label>
-                <input type="text" class="form-control" name="NamaPelanggan" required>
+                <input type="text" class="form-control" name="NamaPelanggan" required pattern="^[A-Za-z\s]+$" title="Nama tidak boleh mengandung angka atau simbol">
             </div>
             <div class="mb-3">
                 <label for="Alamat" class="form-label">Alamat:</label>

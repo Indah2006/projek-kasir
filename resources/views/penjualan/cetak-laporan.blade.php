@@ -24,6 +24,7 @@
 <body>
     <div class="container mt-4">
         <h2 class="mb-4 text-center">Laporan Penjualan - {{ date('F Y', mktime(0, 0, 0, $bulan, 1, $tahun)) }}</h2>
+
         @if ($minggu !== 'all')
             <h3>Minggu ke-{{ $minggu }}</h3>
         @endif
@@ -32,22 +33,32 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Tanggal</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Nama Produk</th>
                         <th>Total Harga</th>
-                        <th>Uang Bayar</th>
-                        <th>Uang Kembali</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($penjualans as $penjualan)
+                    @php $totalKeseluruhan = 0; @endphp
+                    @foreach ($penjualans as $index => $penjualan)
                         <tr>
+                            <td>{{ $index + 1 }}</td>
                             <td>{{ date('d-m-Y', strtotime($penjualan->TanggalPenjualan)) }}</td>
-                            <td class="text-end">Rp {{ number_format($penjualan->TotalHarga, 0, ',', '.') }}</td>
-                            <td class="text-end">Rp {{ number_format($penjualan->UangBayar, 0, ',', '.') }}</td>
-                            <td class="text-end">Rp {{ number_format($penjualan->UangKembali, 0, ',', '.') }}</td>
+                            <td>{{ $penjualan->pelanggan->NamaPelanggan ?? '-' }}</td>
+                            <td>{{ $penjualan->produk->NamaProduk ?? '-' }}</td>
+                            <td>Rp {{ number_format($penjualan->TotalHarga, 0, ',', '.') }}</td>
                         </tr>
+                        @php $totalKeseluruhan += $penjualan->TotalHarga; @endphp
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-end">Total Keseluruhan:</th>
+                        <th>Rp {{ number_format($totalKeseluruhan, 0, ',', '.') }}</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
