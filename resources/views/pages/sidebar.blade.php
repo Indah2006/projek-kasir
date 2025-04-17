@@ -22,8 +22,10 @@
       <span class="menu-header-text">Pages</span>
     </li>
 
+
     <li class="menu-item {{ request()->routeIs('pelanggan.index') ? 'active' : '' }}">
       <a href="{{ route('pelanggan.index') }}" class="menu-link no-underline">
+
         <i class="menu-icon tf-icons bx bx-group"></i>
         <div>Pelanggan</div>
       </a>

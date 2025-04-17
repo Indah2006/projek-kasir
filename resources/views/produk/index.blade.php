@@ -55,7 +55,9 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4 text-center" style="color: #005ce6;">📦 Daftar Produk</h1>
+        @if(Auth::check() && Auth::user()->role == 'admin')
         <a href="{{ route('produk.create') }}" class="btn btn-success mb-3">Tambah Produk</a>
+        @endif
 
         @if (session('success'))
             <div id="success-alert" class="alert alert-success" role="alert">
@@ -76,7 +78,10 @@
                     <th>Nama Produk</th>
                     <th>Harga</th>
                     <th>Stok</th>
+                    @if(Auth::check() && Auth::user()->role == 'admin')
                     <th>Aksi</th>
+                    @endif
+                
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +91,7 @@
                         <td>{{ $produk->NamaProduk }}</td>
                         <td>Rp {{ number_format($produk->Harga, 0, ',', '.') }}</td>
                         <td>{{ $produk->Stok }}</td>
+                        @if(Auth::check() && Auth::user()->role == 'admin')
                         <td>
                             <a href="{{ route('produk.edit', $produk->Produkid) }}" class="btn btn-warning btn-sm">✏️</a>
                             <form action="{{ route('produk.destroy', $produk->Produkid) }}" method="POST" style="display:inline;">
@@ -94,6 +100,7 @@
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Pindahkan ke Tong Sampah?')">🗑️</button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

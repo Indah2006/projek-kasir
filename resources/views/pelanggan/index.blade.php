@@ -53,8 +53,9 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4 text-center">📋 Daftar Pelanggan</h1>
+        @if(Auth::check() && Auth::user()->role == 'admin')
         <a href="{{ route('pelanggan.create') }}" class="btn btn-success mb-3">Tambah Pelanggan</a>
-
+@endif
         @if (session('success'))
             <div class="alert alert-success" id="success-message">
                 ✅ {{ session('success') }}
@@ -73,7 +74,9 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Nomor Telepon</th>
+                    @if(Auth::check() && Auth::user()->role == 'admin')
                     <th>Aksi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -83,6 +86,7 @@
                         <td>{{ $pelanggan->NamaPelanggan }}</td>
                         <td>{{ $pelanggan->Alamat }}</td>
                         <td>{{ $pelanggan->NomorTelepon }}</td>
+                        @if(Auth::check() && Auth::user()->role == 'admin')
                         <td>
                             <a href="{{ route('pelanggan.edit', $pelanggan->Pelangganid) }}" class="btn btn-warning btn-sm">✏️ </a>
                             <form action="{{ route('pelanggan.destroy', $pelanggan->Pelangganid) }}" method="POST" style="display:inline;">
@@ -93,6 +97,7 @@
                                 </button>
                             </form>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
