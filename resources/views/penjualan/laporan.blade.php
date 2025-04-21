@@ -32,6 +32,8 @@
                     <th>Tanggal</th>
                     <th>Nama Pelanggan</th>
                     <th>Nama Produk</th>
+                    <th>Jumlah</th>
+                    <th>Harga</th>
                     <th>Total Harga</th>
                 </tr>
             </thead>
@@ -42,7 +44,47 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ date('d-m-Y', strtotime($penjualan->TanggalPenjualan)) }}</td>
                         <td>{{ $penjualan->pelanggan->NamaPelanggan ?? '-' }}</td>
-                        <td>{{ $penjualan->produk->NamaProduk ?? '-' }}</td>
+                        <td>
+                            @if ($penjualan->detailPenjualan->isNotEmpty())
+                                <ul class="text-start mb-0" style="list-style: none; padding-left: 0;">
+                                    @foreach ($penjualan->detailPenjualan as $detail)
+                                    <li>
+                                        {{ $detail->produk->NamaProduk ?? '-' }} - 
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td> 
+    @if ($penjualan->detailPenjualan->isNotEmpty())
+        <ul class="text-start mb-0" style="list-style: none; padding-left: 0;">
+            @foreach ($penjualan->detailPenjualan as $detail)
+                <li> {{$detail->jumlah_produk}}
+                  
+                </li>
+            @endforeach
+        </ul>
+    @else
+        -
+    @endif
+</td>
+                        <td> 
+    @if ($penjualan->detailPenjualan->isNotEmpty())
+        <ul class="text-start mb-0" style="list-style: none; padding-left: 0;">
+            @foreach ($penjualan->detailPenjualan as $detail)
+                <li> {{ number_format($detail->produk->Harga ?? 0, 0, ',', '.') }}
+                  
+                </li>
+            @endforeach
+        </ul>
+    @else
+        -
+    @endif
+</td>
+
+
                         <td>Rp {{ number_format($penjualan->TotalHarga, 0, ',', '.') }}</td>
                     </tr>
                     @php $totalKeseluruhan += $penjualan->TotalHarga; @endphp
@@ -50,7 +92,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4" class="text-end">Total Keseluruhan:</th>
+                    <th colspan="6" class="text-end">Total Keseluruhan:</th>
                     <th>Rp {{ number_format($totalKeseluruhan, 0, ',', '.') }}</th>
                 </tr>
             </tfoot>

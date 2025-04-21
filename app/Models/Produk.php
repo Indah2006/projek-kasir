@@ -17,7 +17,7 @@ class Produk extends Model
 
     public function penjualans()
     {
-        return $this->belongsToMany(Penjualan::class, 'detail_penjualans', 'ProdukId', 'Penjualanid');
+        return $this->belongsToMany(Penjualan::class, 'detail_penjualans', 'Produkid', 'Penjualanid');
     }
 }
 
